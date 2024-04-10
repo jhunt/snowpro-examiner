@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /app
+sbcl --noinform --disable-debugger --load prolog.cl --eval '(run)' --eval '(exit)'

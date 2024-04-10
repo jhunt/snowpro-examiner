@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker build -t local/snowpro .
+docker stop snowpro-flash || true
+docker rm snowpro-flash || true
+docker run -d --name snowpro-flash \
+           --restart always \
+           -p 2177:2177 \
+           local/snowpro
