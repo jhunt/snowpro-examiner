@@ -173,7 +173,23 @@
     (if (eq 'y (read))
         (game-until maxq))))
 
+(defun banner ()
+  (format t "~%~%")
+  (format t "     \\__  __/~%")
+  (format t "     /_/  \\_\\        Snowflake SnowPro Quiz ❄️   ~%")
+  (format t "      _\\/\\/_         ~%")
+  (format t " __/\\_\\_\\/_/_/\\__    Think you know Snowflake?~%")
+  (format t "   \\/ /_/\\_\\ \\/      ~%")
+  (format t "     __/\\/\\__        Answer T/F questions by typing T or F.~%")
+  (format t "     \\_\\  /_/        Answer multiple choice with single letter~%")
+  (format t "     /      \\        choices wrapped in parentheses, i.e. (A C D)~%")
+  (format t "~%")
+  (format t "                     made with ❤️ by vivanti.~%")
+  (format t "~%")
+  (format t "~%"))
+
 (defun run ()
+  (banner)
   (format t "~A facts known to the examiner~%" (length *facts*))
   (game-until (length *facts*)))
 
