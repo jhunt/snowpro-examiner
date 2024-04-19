@@ -136,7 +136,7 @@
                     (slot-value q 'question)
                     (reverse prompts))
       :allowed allowed
-      :correct correct)))
+      :correct (reverse correct))))
 
 (defun clear ()
   (setq *facts* nil))
