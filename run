@@ -1,9 +1,25 @@
 #!/bin/bash
+set -eu
 
+echo ">> BUILDING the container image..."
 docker build -t local/snowpro .
-docker stop snowpro-flash || true
-docker rm snowpro-flash || true
+echo ; echo
+
+echo ">> Cleaning up the existing snowpro-flash container..."
+(docker stop snowpro-flash 2>&1 | grep -v 'No such container') || true
+(docker rm   snowpro-flash 2>&1 | grep -v 'No such container') || true
+echo ; echo
+
+echo ">> LAUNCHING the snowpro-flash container..."
 docker run -d --name snowpro-flash \
            --restart always \
            -p 2177:2177 \
            local/snowpro
+echo ; echo
+
+echo "SUCCESS!"
+echo
+echo "now try:"
+echo
+echo "  telnet localhost 2177"
+echo
