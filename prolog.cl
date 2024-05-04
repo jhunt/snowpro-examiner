@@ -271,7 +271,7 @@
   ;; clones; perm -> perm/te/tr; te/tr -> tr/te
 
   (fact "You" can "clone a temporary table and make transient table out of it")
-  (fact "When an object is cloned"
+  (fact "When an object is cloned,"
         '("only the privileges on contained objects (but not those of the object itself)"
           "the object privileges and all contained object privileges")
         "are copied")
@@ -292,11 +292,11 @@
   (fact "Dynamic tables" are "particularly fast to return results")
   (fact "Dynamic tables" do "offer fine-grained control over when data is refreshed")
 
-  (fact "In a managed schema only the"
+  (fact "In a managed schema, only the"
         '("schema" "object")
-        "owner can grant privileged on contained objects")
+        "owner can grant privileges on contained objects")
 
-  (fact "In an unmanaged schema only the"
+  (fact "In an unmanaged schema, only the"
         '("object" "schema")
         "owner can grant privileged on contained objects")
 
@@ -723,7 +723,7 @@
         "only supports landing data into tables it creates and maps to topics.")
       nil)
 (fact "Reducing data retention time on a table"
-      '("immediately moves data in Time Trabel that is outside of the new retention period into failsafe"
+      '("immediately moves data in Time Travel that is outside of the new retention period into failsafe"
         "has no effect on data in Time Travel that is outside of the new retention period")
       nil)
 
@@ -731,6 +731,7 @@
       '("causes data in Time Travel to remain there, and honor the new (longer) retention period"
         "has no effect on data in Time Travel; it will continue to honor the old (shorter) retention period")
       nil)
+
 
 (multi "Which of the following are Cloud Partner Categories?"
        4
@@ -825,7 +826,7 @@
       nil)
 
 (fact "A pre-signed URL"
-      '("proviudes access without needing ANY privileges or external authentication"
+      '("provides access without needing ANY privileges or external authentication"
         "still requires the accessor to have rights to the underlying STAGE.")
       nil)
 (fact "A pre-signed URL"
@@ -840,6 +841,747 @@
 (fact "An XS Warehouse has"
       '(8 16)
       "threads of execution")
+
+(multi "A high number of which values in SYSTEM$CLUSTERING_INFORMATION indicates that the table is not well clustered?"
+      4
+      '("average_overlaps"
+      "average_depth")
+      '("total_partition_count"
+      "total_constant_partition_count")
+)
+
+
+(multi "For which types of warehouses MUST the maximum and minimum number of clusters be equal?"
+      4
+      '("single-cluster warehouses"
+      "warehoues in maximized mode")
+      '("multi-cluster warehouses"
+      "warehoues in auto-scale mode")
+)
+
+(fact "An external function's identifier"
+      '("doesn’t have to be unique because functions are identified and resolved by their name and argument types" "has to be unique")
+      "")
+
+
+(fact "If a multi-cluster warehouse is resized, the new size"
+      '("applies" "does not apply")
+      "to all the clusters for the warehouse, including clusters that are currently running and any clusters that are started after the multi-cluster warehouse is resized.")
+
+
+(fact "When a database is dropped, the data retention period for child schemas or tables, if explicitly set to be different from the retention of the database,"
+      '("is not" "is")
+      "honored.")
+
+(fact "You"
+      '("cannot" "can")
+      "access data held in archival cloud storage classes that require restoration.")
+
+(fact "The Search Optimization maintenance service"
+      '("automatically updates" "does not automatically update")
+      "the search access path to reflect the changes to the data of a table.")
+
+(multi "Which column specifies the timestamp in which the stream will become stale if not consumed?"
+      3
+      '("stale_after")
+      '("stale"
+      "mode"
+      "created_on")
+)
+
+(multi "To use Snowflake-managed compute resources for a task"
+      3
+      '("omit the WAREHOUSE parameter")
+      '("set WAREHOUSE = 'serverless'"
+      "contact Snowflake support"
+      )
+)
+
+(multi "Assuming that the session parameter USE_CACHED_RESULT is set to false, which action will start a virtual warehouse in Snowpark?"
+      4
+      '("Calling a Snowpark stored procedure to query the database with session.call().")
+      '("Creating a DataFrame from a table."
+      "Creating a DataFrame from a staged file with the read() method."
+      "Transforming a DataFrame with methods like replace()."
+      )
+)
+
+
+(multi "How does LATERAL FLATTEN differ from FLATTEN?"
+      3
+      '("LATERAL FLATTEN joins the FLATTEN output with information outside the object.")
+      '("They are the same."
+      "LATERAL FLATTEN joins the FLATTEN output with information inside the object."
+      )
+)
+
+   (fact "You"
+         '("can" "cannot")
+         "add a clustering key to an existing table or change the existing clustering key for a table using ALTER TABLE.")
+
+(multi "How does Snowflake recommend splitting files?"
+      3
+      '("By line")
+      '("By column"
+      "By megabytes"
+      )
+)
+
+(multi "What is the function of SnowCD?"
+      3
+      '("It helps users to diagnose and troubleshoot their network connection to Snowflake.")
+      '("It allows users to connect to Snowflake using the CMD."
+      "It’s an extension of SnowSQL that allow ACCOUNTADMINS to execute admin commands from the CMD."
+      )
+)
+
+
+(multi "The DATA_SHARING_USAGE schema in the SNOWFLAKE database is available to:"
+      4
+      '("The ACCOUNTADMIN role"
+      "Any role that has priviledges on the schema")
+
+      '("The SYSADMIN role"
+      "The ORGADMIN role"
+      "Any role that has priviledges on the database"
+      )
+)
+
+(multi "The DATA_SHARING_USAGE schema in the SNOWFLAKE database is available to:"
+      4
+      '("The ACCOUNTADMIN role"
+      "Any role that has priviledges on the schema")
+      
+      '("The SYSADMIN role"
+      "The ORGADMIN role"
+      )
+)
+
+(multi "A Data Engineer is building a set of reporting tables to analyze consumer requests by region for each of the Data Exchange offerings annually, as well as click-through rates for each listing.
+Which views are needed MINIMALLY as data sources?"
+      4
+      '("SNOWFLAKE.DATA_SHARING_USAGE.LISTING_CONSUMPTION_DAILY"
+      "SNOWFLAKE.DATA_SHARING_USAGE.LISTING_TELEMETRY_DAILY")
+      
+      '("SNOWFLAKE.DATA_SHARING_USAGE.LISTING_EVENTS_DAILY"
+      "SNOWFLAKE.ACCOUNT_USAGE.DATA_TRANSFER_HISTORY"
+      )
+)
+
+(multi "Which function will compute a 'fingerprint' over an entire table, query result, or window to quickly detect changes to table contents or query results?"
+      4
+      '("HASH_AGG(*)"
+        "HASH_AGG(<expr>, <expr>)")
+      
+      '("HASH(*)"
+      "HASH_COMPARE(*)"
+      )
+)
+
+(multi "Which stages support external tables?"
+      4
+      '("External stages only; from any region, and any cloud provider")
+      
+      '("Internal stages only; within a single Snowflake account"
+      "Internal stages only; from any Snowflake account in the organization"
+      "External stages only; only on the same region and cloud provider as the Snowflake account"
+      )
+)
+
+
+(multi "Company A and Company B both have Snowflake accounts. Company A's account is hosted on a different cloud provider and region than Company B's account. Companies A and B are not in the same Snowflake organization.
+How can Company A share data with Company B? (Choose two.)"
+      4
+      '("Create a share within Company A's account and add Company B's account as a recipient of that share."
+      "Create a new account within Company A's organization in the same cloud provider and region as Company B's account. Use database replication to replicate Company A's data to the new account. Create a share within the new account, and add Company B's account as a recipient of that share.")
+      
+      '("Create a share within Company A's account, and create a reader account that is a recipient of the share. Grant Company B access to the reader account."
+      "Use database replication to replicate Company A's data into Company B's account. Create a share within Company B's account and grant users within Company B's account access to the share."
+      "Create a separate database within Company A's account to contain only those data sets they wish to share with Company B. Create a share within Company A's account and add all the objects within this separate database to the share. Add Company B's account as a recipient of the share."
+      )
+)
+
+(multi "A Data Engineer is working on a continuous data pipeline which receives data from Amazon Kinesis Firehose and loads the data into a staging table which will later be used in the data transformation process. The average file size is 300-500 MB.
+The Engineer needs to ensure that Snowpipe is performant while minimizing costs.
+How can this be achieved?"
+      4
+      '("Decrease the buffer size to trigger delivery of files sized between 100 to 250 MB in Kinesis Firehose.")
+      
+      '("Change the file compression size and increase the frequency of the Snowpipe loads."
+      "Split the files before loading them and set the SIZE_LIMIT option to 250 MB."
+      "Increase the size of the virtual warehouse used by Snowpipe."
+      )
+)
+
+  (fact "Iceberg tables"
+        '("don't support" "support")
+        "table stages.")
+
+(multi "Within a Snowflake account, permissions have been defined with custom roles and role hierarchies.
+To set up column-level masking using a role in the hierarchy of the current user, what command would be used?"
+      4
+      '("IS_GRANTED_TO_INVOKER_ROLE")
+      
+      '("IS_ROLE_IN_SESSION"
+      "INVOKER_ROLE"
+      "CURRENT_ROLE"
+      )
+)
+
+(multi "To fix bytes spilled to local storage"
+      4
+      '("Increase the size of the virtual warehouse.")
+      
+      '("Add additional virtual warehouses."
+      "Rewrite the query using Common Table Expressions"
+      "Change the order of the joins and start with smaller tables first."
+      )
+)
+
+(multi "A company has an extensive script in Scala that transforms data by leveraging DataFrames. A Data Engineer needs to move these transformations to Snowpark.
+What characteristics of data transformations in Snowpark should be considered to meet this requirement? (Choose two.)"
+      5
+      '("It is possible to join multiple tables using DataFrames."
+      "Snowpark operations are executed lazily on the server.")
+      
+      '("User-Defined Functions (UDFs) are not pushed down to Snowflake."
+      "Snowpark requires a separate cluster outside of Snowflake for computations."
+      "Columns in different DataFrames with the same name should be referred to with squared brackets."
+      )
+)
+
+(multi "What built-in Snowflake features make use of the change tracking metadata for a table? (Choose two.)"
+      5
+      '("The CHANGES clause"
+      "A STREAM object")
+      
+      '("The MERGE command"
+      "The UPSERT command"
+      "The CHANGE_DATA_CAPTURE command"
+      )
+)
+
+(multi "Streams cannot be created to query change data on which of the following objects?"
+      4
+      '("Query Log Tables")
+      
+      '("External tables"
+      "Views, including secure views"
+      "Directory tables"
+      )
+)
+
+(multi "Which System Function can be used by Data engineer to verify whether a stream contains changed data for a table?"
+      4
+      '("SYSTEM$STREAM_HAS_DATA")
+      
+      '("SYSTEM$STREAM_HAS_CHANGE_DATA"
+      "SYSTEM$STREAM_CDC_DATA"
+      "SYSTEM$STREAM_DELTA_DATA"
+      )
+)
+
+
+(multi "A company is building a dashboard for thousands of Analysts. The dashboard presents the results of a few summary queries on tables that are regularly updated. The query conditions vary by topic according to what data each Analyst needs. Responsiveness of the dashboard queries is a top priority, and the data cache should be preserved.
+How should the Data Engineer configure the compute resources to support this dashboard?"
+      4
+      '("Assign all queries to a multi-cluster virtual warehouse set to maximized mode. Monitor to determine the smallest suitable number of clusters.")
+      
+      '("Assign queries to a multi-cluster virtual warehouse with economy auto-scaling. Allow the system to automatically start and stop clusters according to demand."
+      "Create a virtual warehouse for every 250 Analysts. Monitor to determine how many of these virtual warehouses are being utilized at capacity."
+      "Create a size XL virtual warehouse to support all the dashboard queries. Monitor query runtimes to determine whether the virtual warehouse should be resized."
+      )
+)
+
+
+(multi "Which Snowflake objects does the Snowflake Kafka connector use? (Choose three.)"
+      6
+      '("Pipe"
+      "Internal table stage"
+      "Internal named stage")
+      
+      '("Serverless task"
+      "Internal user stage"
+      "Storage integration"
+      )
+)
+
+  (multi "You are the owner of a table T1 which is in schema S1. The schema is in database D1. In order to grant read-only permissions of this table to a newly created role R1, you will need to…(select all that apply)"
+         6
+        '("Grant ‘USAGE’ on database D1"
+          "Grant ‘USAGE’ on schema S1"
+          "Grant ‘SELECT’ on table T1")
+        
+         '("Grant ‘SELECT’ on database D1"
+           "Grant ‘SELECT’ on schema S1"
+           "Grant ‘USAGE’ on table T1"
+           )
+)
+
+
+   (multi "Which are characteristics of Snowpipe"
+         6
+        '("Load history is stored for 14 days."
+        "Load history must be requested from Snowflake via a REST endpoint, SQL table function, or ACCOUNT_USAGE view."
+        "Loads are combined or split into a single or multiple transactions based on the number and size of the rows in each data file"
+        "Uses Snowflake-supplied compute resources.
+
+")
+         '("Load history is stored for 64 days."
+           "Load history is available upon completion of the COPY statement as the statement output."
+           "Loads are always performed in a single transaction."
+           "Requires a user-specified warehouse to execute COPY statements."
+           )
+)
+
+   (multi "Which are characteristics of batch data loads"
+         6
+
+      '("Load history is stored for 64 days."
+           "Load history is available upon completion of the COPY statement as the statement output."
+           "Loads are always performed in a single transaction."
+           "Requires a user-specified warehouse to execute COPY statements."
+           )
+        '("Load history is stored for 14 days."
+        "Load history must be requested from Snowflake via a REST endpoint, SQL table function, or ACCOUNT_USAGE view."
+        "Loads are combined or split into a single or multiple transactions based on the number and size of the rows in each data file"
+        "Uses Snowflake-supplied compute resources."
+        )
+
+)
+   (fact "Clustering key consists of one or more table columns/expressions, which can be of any data type,"
+         '("except" "including")
+         " GEOGRAPHY, VARIANT, OBJECT, or ARRAY")
+
+
+   (fact "Clustering keys"
+         '("cannot" can"")
+         "be defined for hybrid tables.")
+
+  (multi "This column contains the Kafka message."
+         4
+        '("RECORD_CONTENT")
+        
+         '("RECORD_MESSAGE"
+           "RECORD_DATA"
+           "RECORD_METADATA"
+           )
+)
+
+  (multi "Which format(s) can be used for Kafka messages?"
+         4
+        '("Arvo"
+          "JSON")
+        
+         '("Parquet"
+           "CSV"
+           "ORC"
+           "XML"
+           )
+)
+
+
+(multi "What are characteristics of Snowpark Python packages? (Choose three.)"
+      6
+      '("Third-party packages can be registered as a dependency to the Snowpark session using the session.import() method."
+      "The SQL command DESCRIBE FUNCTION will list the imported Python packages of the Python User-Defined Function (UDF)."
+      "Querying information_schema.packages will provide a list of supported Python packages and versions."
+      )
+      
+      '("Python packages can access any external endpoints."
+      "Python packages can only be loaded in a local environment."
+      "Third-party supported Python packages are locked down to prevent hitting."
+      )
+)
+
+(multi "While running an external function, the following error message is received:
+Error: Function received the wrong number of rows
+What is causing this to occur?"
+      4
+      '("The return message did not produce the same number of rows that it received")
+      
+      '("The JSON returned by the remote service is not constructed correctly."
+      "Nested arrays are not supported in the JSON response."
+      "External functions do not support multiple rows."
+      )
+)
+
+
+(multi "A Data Engineer is building a pipeline to transform a 1 TB table by joining it with supplemental tables. The Engineer is applying filters and several aggregations leveraging Common Table Expressions (CTEs) using a size Medium virtual warehouse in a single query in Snowflake.
+What is the recommended approach to MAXIMIZE performance of this query if the Profile shows data spillage?"
+      4
+      '("Increase the warehouse size.")
+      
+      '("Enable clustering on the table."
+      "Rewrite the query to remove the CTEs."
+      "Switch to a multi-cluster virtual warehouse."
+      )
+)
+
+  (multi "Snowflake provides system data metric function (DMFs) in which schema of the shared SNOWFLAKE database?"
+         4
+        '("CORE")
+        
+         '("INFORMATION_SCHEMA"
+           "DMF"
+           "TOOLS"
+           )
+)
+
+  (multi "Which privilege enables you to control which roles have access to serverless compute resources to call the system data metric function (DMF)?"
+         4
+        '("EXECUTE DATA METRIC FUNCTION")
+        
+         '("CALL SERVERLESS COMPUTE"
+           "EXECUTE SERVERLESS COMPUTE"
+           "CALL DATA METRIC FUNCTION"
+           )
+)
+
+  (multi "Which use case would be BEST suited for the search optimization service?"
+         4
+        '("Business users who need fast response times using highly selective filters.")
+        
+         '("Analysts who need to perform aggregates over high-cardinality columns."
+           "Data Scientists who seek specific JOIN statements with large volumes of data."
+           "Data Engineers who create clustered tables with frequent reads against clustering keys."
+           )
+)
+
+  (multi "What is a characteristic of the use of binding variables in JavaScript stored procedures in Snowflake?"
+         4
+        '("Only JavaScript variables of type number, string, and SfDate can be bound.")
+        
+         '("All types of JavaScript variables can be bound."
+           "All Snowflake first-class objects can be bound."
+           "Users are restricted from binding JavaScript variables because they create SQL injection attack vulnerabilities."
+           )
+)
+
+  (multi "Which system role is recommended for a custom role hierarchy to be ultimately assigned to?"
+         4
+        '("SYSADMIN")
+        
+         '("USERADMIN"
+           "SECURITYADMIN"
+           "ACCOUNTADMIN"
+           )
+)
+
+  (multi "At what isolation level are Snowflake streams?"
+         4
+        '("Repeatable read")
+        
+         '("Snapshot"
+           "Read committed"
+           "Read uncommitted"
+           )
+)
+
+  (multi "Streams support repeatable read isolation. In repeatable read mode"
+         2
+        '("multiple SQL statements within a transaction see the same set of records in a stream")
+        
+         '("statements see any changes made by previous statements executed within the same transaction, even though those changes are not yet committed."
+           )
+)
+
+  (multi "Which methods can be used to create a DataFrame object in Snowpark? (Choose three.)"
+         6
+        '("session.read.json()"
+          "session.table()"
+          "session.sql()")
+        
+         '("session.jdbc_connection()"
+           "DataFrame.write()"
+           "session.builder()"
+           )
+)
+
+(multi "A Data Engineer wants to create a new development database (DEV) as a clone of the permanent production database (PROD). There is a requirement to disable Fail-safe for all tables.
+Which command will meet these requirements?"
+      4
+      '("CREATE TRANSIENT DATABASE DEV -
+CLONE PROD;")
+      
+      '("CREATE DATABASE DEV -
+CLONE PROD -
+FAIL_SAFE = FALSE;"
+      "CREATE DATABASE DEV -
+CLONE PROD;"
+      "CREATE DATABASE DEV -
+CLONE PROD -
+DATA_RETENTION_TIME_IN DAYS = 0;"
+      )
+)
+
+(fact "Renaming a source object"
+      '("does not break a stream or cause" "breaks a stream and causes")
+      "it to go stale.")
+
+(fact "Streams support repeatable read isolation, which means"
+      '("multiple SQL statements within a transaction see the same set of records in a stream" 
+      "statements see any changes made by previous statements executed within the same transaction, even though those changes are not yet committed")
+      nil)
+
+(fact "If a source object is dropped and a new object is created with the same name, any streams linked to the original object"
+      '("are not" "are")
+      "linked to the new object.")
+
+
+
+  (multi "A Data Engineer executes a complex query and wants to make use of Snowflake’s query results caching capabilities to reuse the results.
+Which conditions must be met? (Choose three.)"
+         6
+        '("The table structure contributing to the query result cannot have changed."
+          "The new query must have the same syntax as the previously executed query."
+          "The micro-partitions cannot have changed due to changes to other data in the table.")
+        
+         '("The results must be reused within 72 hours."
+           "The query must be executed using the same virtual warehouse."
+           "The USED_CACHED_RESULT parameter must be included in the query."
+           )
+)
+
+  (multi "By default, the privileges required to create and manage shares are granted only to the"
+         4
+        '("ACCOUNTADMIN")
+        
+         '("SYSADMIN"
+           "USERADMIN"
+           "SECURITYADMIN"
+           )
+)
+ 
+  (multi "Steam columns include:"
+         4
+        '("METADATA$ACTION"
+          "METADATA$ISUPDATE"
+          "METADATA$ROW_ID")
+        
+         '("METADATA$DML"
+           "METADATA$TYPE"
+           "METADATA$ACTION_DATE"
+           )
+)
+        
+
+
+  (multi "Both synchronous and asynchronous queries allowed using the Python Connector?"
+         4
+        '("True")
+        
+         '("False. Neither are allowed"
+           "False. Only synchronous are allowed."
+           "False. Only asynchronous are allowed."
+           )
+)
+
+  (multi "What is a characteristic of the operations of streams in Snowflake?"
+         4
+        '("When a stream is used to update a target table, the offset is advanced to the current time.")
+         '("Whenever a stream is queried, the offset is automatically advanced."
+           "Querying a stream returns all change records and table rows from the current offset to the current time."
+           "Each committed and uncommitted transaction on the source table automatically puts a change record in the stream."
+           )
+)
+
+  (multi "A Data Engineer wants to centralize grant management to maximize security. A user needs OWNERSHIP on a table in a new schema. However, this user should not have the ability to make grant decisions.
+What is the correct way to do this?"
+         4
+        '("Add the WITH MANAGED ACCESS parameter on the schema.")
+        
+         '("Grant OWNERSHIP to the user on the table."
+           "Revoke grant decisions from the user on the table."
+           "Revoke grant decisions from the user on the schema."
+           )
+)
+
+  (multi "A Data Engineer is implementing a near real-time ingestion pipeline to load data into Snowflake using the Snowflake Kafka connector. There will be three Kafka topics created.
+Which Snowflake objects are created automatically when the Kafka connector starts?"
+         4
+        '("Tables"
+          "Pipes"
+          "Internal stages")
+        
+         '("Tasks"
+           "External stages"
+           "Materialized views"
+           )
+)
+
+  (multi "What kind of Snowflake integration is required when defining an external function in Snowflake?"
+         4
+        '(API integration"")
+        
+         '("HTTP integration"
+           "Notification integration"
+           "Security integration"
+           )
+)
+
+  (multi "What is the purpose of the BUILD_STAGE_FILE_URL function in Snowflake?"
+         4
+        '("It generates a permanent URL for accessing files in a stage.")
+        
+         '("It generates an encrypted URL for accessing a file in a stage."
+           "It generates a staged URL for accessing a file in a stage."
+           "It generates a temporary URL for accessing a file in a stage."
+           )
+)
+
+  (multi "A Data Engineer needs to load JSON output from some software into Snowflake using Snowpipe.
+Which recommendation(s) apply to this scenario?"
+         4
+        '("Ensure that data files are 100-250 MB (or larger) in size, compressed."
+         "Extract semi-structured data elements containing null values into relational columns before loading."
+         "Verify each value of each unique element stores a single native data type (string or number).")
+        
+         '("Load large files (1 GB or larger)."
+           "Load a single huge array containing multiple records into a single table row."
+           "Create data files that are less than 100 MB and stage them in cloud storage at a sequence greater than once each minute."
+           )
+)
+
+  (multi "Which Snowflake feature facilitates access to external API services such as geocoders, data transformation, machine learning models, and other custom code?"
+         4
+        '("External functions")
+        
+         '("Security integration"
+           "External tables"
+           "Java User-Defined Functions (UDFs)"
+           )
+)
+
+(fact "For external functions. the remote service"
+      '("must" "doesn't have to")
+      "return one row for each row received."
+      )
+
+(fact "RETURNS NULL ON NULL INPUT"
+      '("will not" "will")
+      "call the User-Defined Function (UDF) if any input is null."
+      )
+
+
+  (multi "A Data Engineer is working on a Snowflake deployment in AWS eu-west-1 (Ireland). The Engineer is planning to load data from staged files into target tables using the COPY INTO command.
+Which sources are valid? (Choose 3)"
+         6
+        '("External stage in an Amazon S3 bucket on AWS eu-central-1 (Frankfurt)"
+          "External stage on GCP us-central1 (Iowa)"
+          "External stage in an Amazon S3 bucket on AWS eu-west-1 (Ireland)"
+          )
+        
+         '("Internal stage on GCP us-central1 (Iowa)"
+           "Internal stage on AWS eu-central-1 (Frankfurt)"
+           "SSD attached to an Amazon EC2 instance on AWS eu-west-1 (Ireland)"
+           )
+)
+
+  (multi "A Data Engineer needs to know the details regarding the micro-partition layout for a table named Invoice using a built-in function.
+Which query will provide this information?"
+         4
+        '("SELECT SYSTEM$CLUSTERING_INFORMATION('Invoice');")
+        
+         '("SELECT $CLUSTERING_INFORMATION('Invoice');"
+           "CALL SYSTEM$CLUSTERING_INFORMATION('Invoice');"
+           "CALL $CLUSTERING_INFORMATION('Invoice');"
+           )
+)
+
+  (multi "Assuming a Data Engineer has all appropriate privileges and context, which statements would be used to assess whether the User-Defined Function (UDF), MYDATABASE.SALES.REVENUE_BY_REGION, exists and is secure? (Choose two.)"
+         5
+        '("SHOW USER FUNCTIONS LIKE 'REVENUE_BY_REGION' IN SCHEMA SALES;"
+          "SELECT IS_SECURE FROM INFORMATION_SCHEMA.FUNCTIONS WHERE FUNCTION_SCHEMA = 'SALES' AND FUNCTION_NAME = 'REVENUE_BY_REGION';")
+        
+         '("SELECT IS_SECURE FROM SNOWFLAKE.INFORMATION_SCHEMA.FUNCTIONS WHERE FUNCTION_SCHEMA = 'SALES' AND FUNCTION_NAME = 'REVENUE_BY_REGION';"
+           "SHOW EXTERNAL FUNCTIONS LIKE 'REVENUE_BY_REGION' IN SCHEMA SALES;"
+           "SHOW SECURE FUNCTIONS LIKE 'REVENUE_BY_REGION' IN SCHEMA SALES;"
+           )
+)
+  
+  (multi "A Data Engineer is writing a Python script using the Snowflake Connector for Python. The Engineer will use the snowflake.connector.connect function to connect to Snowflake.
+The requirements are:
+1. Raise an exception if the specified database, schema, or warehouse does not exist
+2. Improve download performance
+Which parameters of the connect function should be used? (Choose two.)
+"
+         5
+        '("client_prefetch_threads"
+          "validate_default_parameters")
+        
+         '("authenticator"
+           "arrow_number_to_decimal"
+           "client_session_keep_alive"
+           )
+)
+
+
+  (multi "How can a relational data be transformed into semi-structured data using the LEAST amount of operational overhead?"
+         4
+        '("Use the OBJECT_CONSTRUCT function to return a Snowflake object.")
+        
+         '("Use the PARSE_JSON function to produce a VARIANT value."
+           "Use the TO_JSON function."
+           "Use the TO_VARIANT function to convert each of the relational columns to VARIANT."
+           )
+)
+
+  (multi "A Data Engineer ran a stored procedure containing various transactions. During the execution, the session abruptly disconnected, preventing one transaction from committing or rolling back. The transaction was left in a detached state and created a lock on resources.
+What step must the Engineer take to immediately run a new transaction?"
+         4
+        '("Call the system function SYSTEM$ABORT_TRANSACTION.")
+        
+         '("Call the system function SYSTEM$CANCEL_TRANSACTION."
+           "Set the LOCK_TIMEOUT to FALSE in the stored procedure."
+           "Set the TRANSACTION_ABORT_ON_ERROR to TRUE in the stored procedure."
+           )
+)
+
+  (multi "Which methods will trigger an action that will evaluate a DataFrame? (Choose two.)"
+         5
+        '("DataFrame.collect()"
+          "DataFrame.show()")
+        
+         '("DataFrame.random_split()"
+           "DataFrame.select()"
+           "DataFrame.col()"
+           )
+)
+
+  (multi "Given the table SALES which has a clustering key of column CLOSED_DATE, which table function will return the average clustering depth for the SALES_REPRESENTATIVE column for the North American region?"
+         4
+        '("select system$clustering_depth('Sales', 'sales_representative', 'region = ''North America''');")
+        
+         '("select system$clustering_information('Sales', 'sales_representative', 'region = ''North America''');"
+           "select system$clustering_depth('Sales', 'sales_representative') where region = 'North America';"
+           "select system$clustering_information('Sales', 'sales_representative') where region = 'North America’;"
+           )
+)
+
+  (multi "A new CUSTOMER table is created by a data pipeline in a Snowflake schema where MANAGED ACCESS is enabled.
+Which roles can grant access to the CUSTOMER table? (Choose three.)"
+         6
+        '("The role that owns the schema"
+          "The SECURITYADMIN role"
+          "The USERADMIN role with the MANAGE GRANTS privilege")
+        
+         '("The role that owns the database"
+           "The SYSADMIN role"
+           "The role that owns the CUSTOMER table"
+           )
+)
+
+  (multi "You are designing storage for 20 TB of text files as part of deploying a data pipeline on Google Cloud. Your input data is in CSV format. You want to minimize the cost of querying aggregate values for multiple users who will query the data in Cloud Storage with multiple engines. Which storage service and schema design should you use?"
+         4
+        '("Use Cloud Storage for storage. Link as permanent tables in BigQuery for query.") 
+         '("Use Cloud Bigtable for storage. Install the HBase shell on a Compute Engine instance to query the Cloud Bigtable data."
+           "Use Cloud Bigtable for storage. Link as permanent tables in BigQuery for query."
+           "Use Cloud Storage for storage. Link as temporary tables in BigQuery for query."
+           )
+)
+
+
 
 ;; GET_STAGE_LOCATION -- converst stage name into cloud URL (i.e. gcs://...)
 ;; GET_ABSOLUTE_PATH
