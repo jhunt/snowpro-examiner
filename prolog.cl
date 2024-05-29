@@ -990,7 +990,7 @@ Which views are needed MINIMALLY as data sources?"
 
 
 (multi "Company A and Company B both have Snowflake accounts. Company A's account is hosted on a different cloud provider and region than Company B's account. Companies A and B are not in the same Snowflake organization.
-How can Company A share data with Company B? (Choose two.)"
+How can Company A share data with Company B?"
       4
       '("Create a share within Company A's account and add Company B's account as a recipient of that share."
       "Create a new account within Company A's organization in the same cloud provider and region as Company B's account. Use database replication to replicate Company A's data to the new account. Create a share within the new account, and add Company B's account as a recipient of that share.")
@@ -1039,7 +1039,7 @@ To set up column-level masking using a role in the hierarchy of the current user
 )
 
 (multi "A company has an extensive script in Scala that transforms data by leveraging DataFrames. A Data Engineer needs to move these transformations to Snowpark.
-What characteristics of data transformations in Snowpark should be considered to meet this requirement? (Choose two.)"
+What characteristics of data transformations in Snowpark should be considered to meet this requirement?"
       5
       '("It is possible to join multiple tables using DataFrames."
       "Snowpark operations are executed lazily on the server.")
@@ -1050,7 +1050,7 @@ What characteristics of data transformations in Snowpark should be considered to
       )
 )
 
-(multi "What built-in Snowflake features make use of the change tracking metadata for a table? (Choose two.)"
+(multi "What built-in Snowflake features make use of the change tracking metadata for a table?"
       5
       '("The CHANGES clause"
       "A STREAM object")
@@ -1094,8 +1094,8 @@ How should the Data Engineer configure the compute resources to support this das
 )
 
 
-(multi "Which Snowflake objects does the Snowflake Kafka connector use? (Choose three.)"
-      6
+(multi "Which Snowflake objects does the Snowflake Kafka connector use?"
+      4
       '("Pipe"
       "Internal table stage"
       "Internal named stage")
@@ -1107,7 +1107,7 @@ How should the Data Engineer configure the compute resources to support this das
 )
 
   (multi "You are the owner of a table T1 which is in schema S1. The schema is in database D1. In order to grant read-only permissions of this table to a newly created role R1, you will need to…(select all that apply)"
-         6
+         4
         '("Grant ‘USAGE’ on database D1"
           "Grant ‘USAGE’ on schema S1"
           "Grant ‘SELECT’ on table T1")
@@ -1120,7 +1120,7 @@ How should the Data Engineer configure the compute resources to support this das
 
 
    (multi "Which are characteristics of Snowpipe"
-         6
+         4
         '("Load history is stored for 14 days."
         "Load history must be requested from Snowflake via a REST endpoint, SQL table function, or ACCOUNT_USAGE view."
         "Loads are combined or split into a single or multiple transactions based on the number and size of the rows in each data file"
@@ -1135,7 +1135,7 @@ How should the Data Engineer configure the compute resources to support this das
 )
 
    (multi "Which are characteristics of batch data loads"
-         6
+         4
 
       '("Load history is stored for 64 days."
            "Load history is available upon completion of the COPY statement as the statement output."
@@ -1153,10 +1153,9 @@ How should the Data Engineer configure the compute resources to support this das
          '("except" "including")
          " GEOGRAPHY, VARIANT, OBJECT, or ARRAY")
 
-
-   (fact "Clustering keys"
-         '("cannot" can"")
-         "be defined for hybrid tables.")
+(let* ((can '("can" "cannot"))
+       (cant (reverse can)))
+(fact "Clustering keys" cant "be defined for hybrid tables"))
 
   (multi "This column contains the Kafka message."
          4
@@ -1170,7 +1169,7 @@ How should the Data Engineer configure the compute resources to support this das
 
   (multi "Which format(s) can be used for Kafka messages?"
          4
-        '("Arvo"
+        '("Avro"
           "JSON")
         
          '("Parquet"
@@ -1181,8 +1180,8 @@ How should the Data Engineer configure the compute resources to support this das
 )
 
 
-(multi "What are characteristics of Snowpark Python packages? (Choose three.)"
-      6
+(multi "What are characteristics of Snowpark Python packages?"
+      4
       '("Third-party packages can be registered as a dependency to the Snowpark session using the session.import() method."
       "The SQL command DESCRIBE FUNCTION will list the imported Python packages of the Python User-Defined Function (UDF)."
       "Querying information_schema.packages will provide a list of supported Python packages and versions."
@@ -1286,8 +1285,8 @@ What is the recommended approach to MAXIMIZE performance of this query if the Pr
            )
 )
 
-  (multi "Which methods can be used to create a DataFrame object in Snowpark? (Choose three.)"
-         6
+  (multi "Which methods can be used to create a DataFrame object in Snowpark?"
+         4
         '("session.read.json()"
           "session.table()"
           "session.sql()")
@@ -1301,17 +1300,11 @@ What is the recommended approach to MAXIMIZE performance of this query if the Pr
 (multi "A Data Engineer wants to create a new development database (DEV) as a clone of the permanent production database (PROD). There is a requirement to disable Fail-safe for all tables.
 Which command will meet these requirements?"
       4
-      '("CREATE TRANSIENT DATABASE DEV -
-CLONE PROD;")
+      '("CREATE TRANSIENT DATABASE DEV CLONE PROD;")
       
-      '("CREATE DATABASE DEV -
-CLONE PROD -
-FAIL_SAFE = FALSE;"
-      "CREATE DATABASE DEV -
-CLONE PROD;"
-      "CREATE DATABASE DEV -
-CLONE PROD -
-DATA_RETENTION_TIME_IN DAYS = 0;"
+      '("CREATE DATABASE DEV CLONE PROD FAIL_SAFE = FALSE;"
+      "CREATE DATABASE DEV CLONE PROD;"
+      "CREATE DATABASE DEV CLONE PROD DATA_RETENTION_TIME_IN DAYS = 0;"
       )
 )
 
@@ -1323,16 +1316,16 @@ DATA_RETENTION_TIME_IN DAYS = 0;"
       '("multiple SQL statements within a transaction see the same set of records in a stream" 
       "statements see any changes made by previous statements executed within the same transaction, even though those changes are not yet committed")
       nil)
-
-(fact "If a source object is dropped and a new object is created with the same name, any streams linked to the original object"
-      '("are not" "are")
-      "linked to the new object.")
+      
+(let* ((are '("are" "are not"))
+       (arent (reverse are)))
+(fact "If a source object is dropped and a new object is created with the same name, any streams linked to the original object" arent "linked to the new object."))
 
 
 
   (multi "A Data Engineer executes a complex query and wants to make use of Snowflake’s query results caching capabilities to reuse the results.
-Which conditions must be met? (Choose three.)"
-         6
+Which conditions must be met?"
+         4
         '("The table structure contributing to the query result cannot have changed."
           "The new query must have the same syntax as the previously executed query."
           "The micro-partitions cannot have changed due to changes to other data in the table.")
@@ -1353,7 +1346,7 @@ Which conditions must be met? (Choose three.)"
            )
 )
  
-  (multi "Steam columns include:"
+  (multi "Stream columns include:"
          4
         '("METADATA$ACTION"
           "METADATA$ISUPDATE"
@@ -1367,7 +1360,7 @@ Which conditions must be met? (Choose three.)"
         
 
 
-  (multi "Both synchronous and asynchronous queries allowed using the Python Connector?"
+  (multi "Both synchronous and asynchronous queries allow using the Python Connector."
          4
         '("True")
         
@@ -1412,7 +1405,7 @@ Which Snowflake objects are created automatically when the Kafka connector start
 
   (multi "What kind of Snowflake integration is required when defining an external function in Snowflake?"
          4
-        '(API integration"")
+        '("API integration")
         
          '("HTTP integration"
            "Notification integration"
@@ -1465,8 +1458,8 @@ Which recommendation(s) apply to this scenario?"
 
 
   (multi "A Data Engineer is working on a Snowflake deployment in AWS eu-west-1 (Ireland). The Engineer is planning to load data from staged files into target tables using the COPY INTO command.
-Which sources are valid? (Choose 3)"
-         6
+Which sources are valid?"
+         4
         '("External stage in an Amazon S3 bucket on AWS eu-central-1 (Frankfurt)"
           "External stage on GCP us-central1 (Iowa)"
           "External stage in an Amazon S3 bucket on AWS eu-west-1 (Ireland)"
@@ -1478,7 +1471,7 @@ Which sources are valid? (Choose 3)"
            )
 )
 
-  (multi "A Data Engineer needs to know the details regarding the micro-partition layout for a table named Invoice using a built-in function.
+  (multi "A Data Engineer needs to know the details regarding the micro-partition layout for a table named Invoice! using a built-in function.
 Which query will provide this information?"
          4
         '("SELECT SYSTEM$CLUSTERING_INFORMATION('Invoice');")
@@ -1489,7 +1482,7 @@ Which query will provide this information?"
            )
 )
 
-  (multi "Assuming a Data Engineer has all appropriate privileges and context, which statements would be used to assess whether the User-Defined Function (UDF), MYDATABASE.SALES.REVENUE_BY_REGION, exists and is secure? (Choose two.)"
+  (multi "Assuming a Data Engineer has all appropriate privileges and context, which statements would be used to assess whether the User-Defined Function (UDF), MYDATABASE.SALES.REVENUE_BY_REGION, exists and is secure?"
          5
         '("SHOW USER FUNCTIONS LIKE 'REVENUE_BY_REGION' IN SCHEMA SALES;"
           "SELECT IS_SECURE FROM INFORMATION_SCHEMA.FUNCTIONS WHERE FUNCTION_SCHEMA = 'SALES' AND FUNCTION_NAME = 'REVENUE_BY_REGION';")
@@ -1499,12 +1492,12 @@ Which query will provide this information?"
            "SHOW SECURE FUNCTIONS LIKE 'REVENUE_BY_REGION' IN SCHEMA SALES;"
            )
 )
-  
+(clear)
   (multi "A Data Engineer is writing a Python script using the Snowflake Connector for Python. The Engineer will use the snowflake.connector.connect function to connect to Snowflake.
 The requirements are:
 1. Raise an exception if the specified database, schema, or warehouse does not exist
 2. Improve download performance
-Which parameters of the connect function should be used? (Choose two.)
+Which parameters of the connect function should be used?
 "
          5
         '("client_prefetch_threads"
@@ -1517,7 +1510,7 @@ Which parameters of the connect function should be used? (Choose two.)
 )
 
 
-  (multi "How can a relational data be transformed into semi-structured data using the LEAST amount of operational overhead?"
+  (multi "How can relational data be transformed into semi-structured data using the LEAST amount of operational overhead?"
          4
         '("Use the OBJECT_CONSTRUCT function to return a Snowflake object.")
         
@@ -1538,7 +1531,7 @@ What step must the Engineer take to immediately run a new transaction?"
            )
 )
 
-  (multi "Which methods will trigger an action that will evaluate a DataFrame? (Choose two.)"
+  (multi "Which methods will trigger an action that will evaluate a DataFrame?"
          5
         '("DataFrame.collect()"
           "DataFrame.show()")
@@ -1560,8 +1553,8 @@ What step must the Engineer take to immediately run a new transaction?"
 )
 
   (multi "A new CUSTOMER table is created by a data pipeline in a Snowflake schema where MANAGED ACCESS is enabled.
-Which roles can grant access to the CUSTOMER table? (Choose three.)"
-         6
+Which roles can grant access to the CUSTOMER table?"
+         4
         '("The role that owns the schema"
           "The SECURITYADMIN role"
           "The USERADMIN role with the MANAGE GRANTS privilege")
@@ -1571,16 +1564,6 @@ Which roles can grant access to the CUSTOMER table? (Choose three.)"
            "The role that owns the CUSTOMER table"
            )
 )
-
-  (multi "You are designing storage for 20 TB of text files as part of deploying a data pipeline on Google Cloud. Your input data is in CSV format. You want to minimize the cost of querying aggregate values for multiple users who will query the data in Cloud Storage with multiple engines. Which storage service and schema design should you use?"
-         4
-        '("Use Cloud Storage for storage. Link as permanent tables in BigQuery for query.") 
-         '("Use Cloud Bigtable for storage. Install the HBase shell on a Compute Engine instance to query the Cloud Bigtable data."
-           "Use Cloud Bigtable for storage. Link as permanent tables in BigQuery for query."
-           "Use Cloud Storage for storage. Link as temporary tables in BigQuery for query."
-           )
-)
-
 
 
 ;; GET_STAGE_LOCATION -- converst stage name into cloud URL (i.e. gcs://...)
